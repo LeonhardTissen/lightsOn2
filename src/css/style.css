@@ -1,0 +1,19 @@
+@font-face {
+    src: url('../assets/fonts/Geist-Medium.otf') format("opentype");
+    font-family: 'Geist';
+}
+body {
+    margin: 0;
+    overflow: hidden;
+}
+* {
+    font-family: 'Geist';
+    color: white;
+    user-select: none;
+}
+#game {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
