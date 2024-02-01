@@ -1,9 +1,9 @@
 {
   "urls": [
-    "audio/1.ogg",
-    "audio/1.m4a",
-    "audio/1.mp3",
-    "audio/1.ac3"
+    "/audio/1.ogg",
+    "/audio/1.m4a",
+    "/audio/1.mp3",
+    "/audio/1.ac3"
   ],
   "sprite": {
     "next": [

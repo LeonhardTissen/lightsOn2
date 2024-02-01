@@ -31,3 +31,20 @@ app.view.addEventListener('mouseup', handleMouseUp);
 app.view.addEventListener('contextmenu', (event) => {
 	event.preventDefault();
 });
+
+// Mobile support
+app.view.addEventListener('touchstart', () => {
+	mouseButtons.add(0);
+	handleMouseLevel();
+});
+
+app.view.addEventListener('touchend', () => {
+	mouseButtons.delete(0);
+	handleMouseLevel();
+});
+
+app.view.addEventListener('touchmove', (event) => {
+	mousePosition.x = event.touches[0].clientX;
+	mousePosition.y = event.touches[0].clientY;
+	handleMouseLevel();
+});

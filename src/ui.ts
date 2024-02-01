@@ -4,6 +4,9 @@ export function setLevelText(text: string) {
 export function setLevelName(name: string, levelNumber: number) {
 	setLevelText(`Level ${levelNumber + 1} - ${name}`);
 }
+export function setTilesLit(lit: number, total: number) {
+	document.getElementById('tilesLit')!.innerText = `${lit}/${total}`;
+}
 
 export function blockerControl(active: boolean) {
 	const blocker = document.getElementById('blocker')!;

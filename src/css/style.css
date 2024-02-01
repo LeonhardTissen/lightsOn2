@@ -27,6 +27,7 @@ body {
 	z-index: 2;
 	font-size: 28px;
 	transition: all 1.3s ease-in-out;
+	pointer-events: none;
 }
 #levelName {
 	transition: color 1s linear;
@@ -40,4 +41,14 @@ body {
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 1s linear;
+}
+#tilesLit {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	z-index: 1;
+	opacity: 0.5;
+	pointer-events: none;
+	transition: opacity 1s linear;
+	margin: 20px;
 }

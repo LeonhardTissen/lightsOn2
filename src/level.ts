@@ -5,10 +5,17 @@ import { LevelData, levels } from './levels';
 import { Tile, getLightStrength, getTileTexture, isLight, isWall, wallTileOffset } from './tile';
 import { mouseButtons, mousePosition } from './mouse';
 import { pressedKeys } from './keyboard';
-import { blockerControl, setLevelName, setLevelText } from './ui';
+import { blockerControl, setLevelName, setLevelText, setTilesLit } from './ui';
 import { sound } from './audio';
 
 export let currentLevel = 0;
+
+const lsiKey = 'lightson2-save';
+const storedLevel = localStorage.getItem(lsiKey);
+if (storedLevel) {
+	currentLevel = +storedLevel;
+}
+
 let currentEditorTile = Tile.Wall1;
 
 let tileLookup: Record<string, Sprite> = {};
@@ -229,13 +236,15 @@ function updateLightBgSprites() {
 	}
 	if (editorMode) return;
 	const tilesLit = Object.keys(lightBgLookup).length;
-	console.log(tilesLit, tilesToLight);
+	setTilesLit(tilesLit, tilesToLight);
 	if (tilesLit === tilesToLight) {
 		goToNextLevel();
 	}
 }
 
 function lightBgIteration(x: number, y: number, strength: number) {
+	if (strength <= 0) return;
+	if (x < 0 || y < 0 || x >= level[0].length || y >= level.length) return;
 	// Check if the light can be placed
 	const tile = level[y][x];
 	if (isWall(tile)) return;
@@ -368,15 +377,14 @@ export function handleMouseLevel() {
 		if (grabbedLight) {
 			setCursor('move');
 
-			if (mouseButtons.has(0)) {
-				sound.play('off');
-				mouseButtons.delete(0);
+			if (!mouseButtons.has(0)) {
 
 				// Check if the light can be placed
 				const { x, y } = tileMousePosition;
 				if (level[y][x] !== Tile.Background) return;
 
 				// Place the light
+				sound.play('off');
 				const light = grabbedLight;
 				levelCon.addChild(light.sprite);
 				app.stage.removeChild(light.sprite);
@@ -406,7 +414,6 @@ export function handleMouseLevel() {
 		setCursor('grab');
 		if (mouseButtons.has(0)) {
 			const { x, y } = tileMousePosition;
-			mouseButtons.delete(0);
 			// Grab the light
 			sound.play('on');
 			level[y][x] = Tile.Background;
@@ -428,6 +435,7 @@ export function handleKeyboardLevel() {
 		for (let i = 0; i < 10; i++) {
 			if (pressedKeys.has(`${i}`)) {
 				currentEditorTile = i;
+				setLevelText(`Current Tile: ${Tile[i]}`);
 			}
 		}
 	}
