@@ -1,6 +1,8 @@
 import { Application } from 'pixi.js';
 
-export const app = new Application<HTMLCanvasElement>();
+export const app = new Application<HTMLCanvasElement>({
+	antialias: false, // Disable antialiasing
+});
 window.__PIXI_APP__ = app;
 
 function resize(): void {
@@ -12,3 +14,7 @@ resize();
 app.renderer.background.color = 0x222222;
 app.view.id = 'game';
 document.body.appendChild(app.view);
+
+export function setCursor(cursor: string): void {
+	app.view.style.cursor = cursor;
+}

@@ -2,16 +2,116 @@
 	"meta": {
 		"image": "@ref(./game.spritesheet.png)",
 		"size": {
-			"w": 128,
-			"h": 128
+			"w": 316,
+			"h": 232
 		},
 		"scale": "1"
 	},
 	"frames": {
+		"wall1.png": {
+			"frame": {
+				"x": 0,
+				"y": 0,
+				"w": 84,
+				"h": 84
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 84,
+				"h": 84
+			},
+			"sourceSize": {
+				"w": 84,
+				"h": 84
+			}
+		},
+		"wall2.png": {
+			"frame": {
+				"x": 84,
+				"y": 0,
+				"w": 84,
+				"h": 84
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 84,
+				"h": 84
+			},
+			"sourceSize": {
+				"w": 84,
+				"h": 84
+			}
+		},
+		"wall3.png": {
+			"frame": {
+				"x": 0,
+				"y": 84,
+				"w": 84,
+				"h": 84
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 84,
+				"h": 84
+			},
+			"sourceSize": {
+				"w": 84,
+				"h": 84
+			}
+		},
+		"wall4.png": {
+			"frame": {
+				"x": 84,
+				"y": 84,
+				"w": 84,
+				"h": 84
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 84,
+				"h": 84
+			},
+			"sourceSize": {
+				"w": 84,
+				"h": 84
+			}
+		},
+		"wall5.png": {
+			"frame": {
+				"x": 168,
+				"y": 0,
+				"w": 84,
+				"h": 84
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 84,
+				"h": 84
+			},
+			"sourceSize": {
+				"w": 84,
+				"h": 84
+			}
+		},
 		"bg.png": {
 			"frame": {
-				"x": 0,
-				"y": 0,
+				"x": 168,
+				"y": 84,
 				"w": 64,
 				"h": 64
 			},
@@ -28,9 +128,69 @@
 				"h": 64
 			}
 		},
-		"light.png": {
+		"cursor.png": {
+			"frame": {
+				"x": 0,
+				"y": 168,
+				"w": 64,
+				"h": 64
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 64
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 64
+			}
+		},
+		"error.png": {
 			"frame": {
 				"x": 64,
+				"y": 168,
+				"w": 64,
+				"h": 64
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 64
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 64
+			}
+		},
+		"light1.png": {
+			"frame": {
+				"x": 128,
+				"y": 168,
+				"w": 64,
+				"h": 64
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 64
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 64
+			}
+		},
+		"light2.png": {
+			"frame": {
+				"x": 252,
 				"y": 0,
 				"w": 64,
 				"h": 64
@@ -48,10 +208,30 @@
 				"h": 64
 			}
 		},
-		"wall.png": {
+		"light3.png": {
 			"frame": {
-				"x": 0,
+				"x": 252,
 				"y": 64,
+				"w": 64,
+				"h": 64
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 64
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 64
+			}
+		},
+		"lightbg.png": {
+			"frame": {
+				"x": 252,
+				"y": 128,
 				"w": 64,
 				"h": 64
 			},

@@ -22,7 +22,9 @@ export function loadGameAssets(): Promise<Record<string, Texture>> {
 export function getTexture(name: string): Texture {
 	const texture = gameTextures[name];
 	if (texture === undefined) {
-		throw new Error(`Unhandled Texture: ${name}`);
+		// throw new Error(`Unhandled Texture: ${name}`);
+		console.error(`Unhandled Texture: ${name}`);
+		return gameTextures['error'];
 	}
 	return texture;
 }
