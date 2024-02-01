@@ -193,11 +193,13 @@ export function initLevel() {
 
 
 function createLightSprite(x: number, y: number, strength: number) {
+	const isWallAbove = y > 0 && isWall(level[y - 1][x]);
+	const isWallLeft = x > 0 && isWall(level[y][x - 1]);
 	const sprite = new Sprite();
-	const texture = 'lightbg';
+	const texture = `lightbg${isWallLeft ? 'l' : ''}${isWallAbove ? 't' : ''}`;
 	sprite.texture = getTexture(texture);
-	sprite.x = x * tileWidth;
-	sprite.y = y * tileWidth;
+	sprite.x = x * tileWidth + wallTileOffset;
+	sprite.y = y * tileWidth + wallTileOffset;
 	sprite.zIndex = getZIndex(x, y, 2);
 	sprite.alpha = strength / 10 + 0.1;
 	levelCon.addChild(sprite);
