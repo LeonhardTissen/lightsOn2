@@ -5,7 +5,7 @@ import { LevelData, levels } from './levels';
 import { Tile, getLightStrength, getTileTexture, isLight, isWall, wallTileOffset } from './tile';
 import { mouseButtons, mousePosition } from './mouse';
 import { pressedKeys } from './keyboard';
-import { blockerControl, setLevelName, setLevelText, setTilesLit, winScreenControl } from './ui';
+import { blockerControl, causeLevelTextAnimation, setLevelInfo, setLevelName, setLevelNumber, setTilesLit, winScreenControl } from './ui';
 import { sound } from './audio';
 
 export let currentLevel = 0;
@@ -43,6 +43,7 @@ type Light = {
 let grabbedLight: Light | undefined;
 
 export function nextLevel() {
+	causeLevelTextAnimation();
 	currentLevel++;
 	updateLevelButtons();
 	const oldSave = localStorage.getItem(lsiKey);
@@ -68,13 +69,12 @@ export let level: LevelData;
 
 export function loadLevel() {
 	const { data, name } = levels[currentLevel];
-	setLevelName(name, currentLevel);
+	setLevelInfo(name, currentLevel);
 	level = JSON.parse(JSON.stringify(data));
 }
 
 export function winGame() {
 	sound.play('next');
-	setLevelText('You Win!');
 	winScreenControl(true);
 }
 
@@ -454,7 +454,8 @@ export function handleKeyboardLevel() {
 		for (let i = 0; i < 10; i++) {
 			if (pressedKeys.has(`${i}`)) {
 				currentEditorTile = i;
-				setLevelText(`Current Tile: ${Tile[i]}`);
+				setLevelNumber(`${i}`);
+				setLevelName(`${Tile[i]}`);
 			}
 		}
 	}

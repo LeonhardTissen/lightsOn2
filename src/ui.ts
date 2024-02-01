@@ -1,8 +1,12 @@
-export function setLevelText(text: string) {
+export function setLevelName(text: string) {
 	document.getElementById('levelName')!.innerText = text;
 }
-export function setLevelName(name: string, levelNumber: number) {
-	setLevelText(`Level ${levelNumber + 1} - ${name}`);
+export function setLevelNumber(text: string) {
+	document.getElementById('levelNumber')!.innerText = text;
+}
+export function setLevelInfo(name: string, levelNumber: number) {
+	setLevelName(name);
+	setLevelNumber(`${levelNumber + 1}`);
 }
 export function setTilesLit(lit: number, total: number) {
 	document.getElementById('tilesLit')!.innerText = `${lit}/${total}`;
@@ -10,9 +14,9 @@ export function setTilesLit(lit: number, total: number) {
 
 export function blockerControl(active: boolean) {
 	const blocker = document.getElementById('blocker')!;
-	const levelName = document.getElementById('levelName')!;
+	const levelText = document.getElementById('levelText')!;
 	const ui = document.getElementById('ui')!;
-	levelName.style.color = active ? 'black' : 'white';
+	levelText.style.color = active ? 'black' : 'white';
 	blocker.style.opacity = active ? '1' : '0';
 	blocker.style.pointerEvents = active ? 'all' : 'none';
 	ui.style.bottom = active ? '50%' : '0';
@@ -21,7 +25,17 @@ export function blockerControl(active: boolean) {
 }
 
 export function winScreenControl(active: boolean) {
+	const levelText = document.getElementById('levelText')!;
 	const winScreen = document.getElementById('winScreen')!;
 	winScreen.style.display = active ? 'block' : 'none';
 	winScreen.style.pointerEvents = active ? 'all' : 'none';
+	levelText.style.display = active ? 'none' : 'block';
+}
+
+export function causeLevelTextAnimation() {
+	const levelText = document.getElementById('levelText')!;
+	levelText.style.animation = 'flick 0.6s ease-out';
+	levelText.addEventListener('animationend', () => {
+		levelText.style.animation = '';
+	});
 }

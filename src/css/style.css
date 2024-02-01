@@ -8,7 +8,6 @@ body {
 }
 * {
     font-family: 'Geist';
-    color: white;
     user-select: none;
 	margin: 0;
 	padding: 0;
@@ -30,9 +29,21 @@ body {
 	pointer-events: none;
 	text-align: center;
 }
-#levelName {
+#levelText {
+	color: white;
 	transition: color 1s linear;
 	white-space: nowrap;
+}
+@keyframes flick {
+	0% {
+		transform: scale(1);
+	}
+	20% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
 }
 #blocker {
 	position: fixed;
@@ -111,4 +122,30 @@ body {
 	pointer-events: none;
 	transform: scale(0.8);
 	filter: blur(2px);
+}
+#levelSeperator {
+	opacity: 0.2;
+}
+#winText {
+	animation: colorChange 3s infinite step-end;
+	text-shadow:
+		3px 0px 0px black,
+		-3px 0px 0px black,
+		0px -3px 0px black,
+		0px 3px 0px black,
+		1.732px 1.732px 0px black,
+		-1.732px -1.732px 0px black,
+		1.732px -1.732px 0px black,
+		-1.732px 1.732px 0px black;
+}
+@keyframes colorChange {
+	0% {
+		color: rgb(255, 255, 70);
+	}
+	33% {
+		color: rgb(12, 255, 25);
+	}
+	66% {
+		color: rgb(255, 145, 20);
+	}
 }
