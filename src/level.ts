@@ -5,12 +5,12 @@ import { LevelData, levels } from './levels';
 import { Tile, getLightStrength, getTileTexture, isLight, isWall, wallTileOffset } from './tile';
 import { mouseButtons, mousePosition } from './mouse';
 import { pressedKeys } from './keyboard';
-import { blockerControl, setLevelName, setLevelText, setTilesLit } from './ui';
+import { blockerControl, setLevelName, setLevelText, setTilesLit, winScreenControl } from './ui';
 import { sound } from './audio';
 
 export let currentLevel = 0;
 
-const lsiKey = 'lightson2-save';
+const lsiKey = 'lightson2-maxlevel';
 const storedLevel = localStorage.getItem(lsiKey);
 if (storedLevel) {
 	currentLevel = +storedLevel;
@@ -44,18 +44,38 @@ let grabbedLight: Light | undefined;
 
 export function nextLevel() {
 	currentLevel++;
+	updateLevelButtons();
+	const oldSave = localStorage.getItem(lsiKey);
+	// Only save the level if it is higher than the old save or if there is no old save
+	if ((oldSave && currentLevel > +oldSave) || !oldSave) {
+		localStorage.setItem(lsiKey, `${currentLevel}`);
+	}
 }
 
 export function goToLevel(levelNumber: number) {
 	currentLevel = levelNumber;
 }
 
+document.getElementById('reset')!.addEventListener('click', () => {
+	blockerControl(false);
+	winScreenControl(false);
+	goToLevel(0);
+	loadLevel();
+	initLevel();
+});
+
 export let level: LevelData;
 
 export function loadLevel() {
 	const { data, name } = levels[currentLevel];
 	setLevelName(name, currentLevel);
-	level = data;
+	level = JSON.parse(JSON.stringify(data));
+}
+
+export function winGame() {
+	sound.play('next');
+	setLevelText('You Win!');
+	winScreenControl(true);
 }
 
 export function goToNextLevel() {
@@ -63,10 +83,7 @@ export function goToNextLevel() {
 	sound.play('win');
 	blockerControl(true);
 	if (levels[currentLevel + 1] === undefined) {
-		setTimeout(() => {
-			sound.play('next');
-			setLevelText('You Win!');
-		}, 1500);
+		setTimeout(winGame, 1500);
 		return;
 	}
 	setTimeout(() => {
@@ -441,4 +458,27 @@ export function handleKeyboardLevel() {
 			}
 		}
 	}
+}
+
+levels.forEach((_, index) => {
+	const button = document.createElement('button');
+	button.classList.add('levelButton');
+	button.addEventListener('click', () => {
+		goToLevel(index);
+		loadLevel();
+		initLevel();
+	});
+	document.getElementById('levelMenu')!.appendChild(button);
+	updateLevelButtons();
+});
+
+function updateLevelButtons() {
+	const levelButtons = document.querySelectorAll('.levelButton');
+	levelButtons.forEach((button, index) => {
+		if (index > currentLevel) {
+			button.classList.add('locked');
+		} else {
+			button.classList.remove('locked');
+		}
+	});
 }

@@ -18,5 +18,10 @@ export function blockerControl(active: boolean) {
 	ui.style.bottom = active ? '50%' : '0';
 	ui.style.left = active ? '50%' : '0';
 	ui.style.transform = active ? 'translate(-50%, 50%)' : 'translate(0, 0)';
+}
 
+export function winScreenControl(active: boolean) {
+	const winScreen = document.getElementById('winScreen')!;
+	winScreen.style.display = active ? 'block' : 'none';
+	winScreen.style.pointerEvents = active ? 'all' : 'none';
 }
