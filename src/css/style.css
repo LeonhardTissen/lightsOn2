@@ -64,6 +64,7 @@ body {
 	pointer-events: none;
 	transition: opacity 1s linear;
 	margin: 20px;
+	color: white;
 }
 .decorated {
 	border: none;
