@@ -1,19 +1,28 @@
 import { Container, Sprite } from 'pixi.js';
 import { getTexture } from './pixi/assets';
 import { app, setCursor } from './pixi/app';
-import { Level, levels } from './levels';
+import { LevelData, levels } from './levels';
 import { Tile, getLightStrength, getTileTexture, isLight, isWall, wallTileOffset } from './tile';
 import { mouseButtons, mousePosition } from './mouse';
 import { pressedKeys } from './keyboard';
+import { blockerControl, setLevelName, setLevelText } from './ui';
+import { sound } from './audio';
 
 export let currentLevel = 0;
 let currentEditorTile = Tile.Wall1;
 
-const tileLookup: Record<string, Sprite> = {};
-const lightLookup: Record<string, Light> = {};
-const lightBgLookup: Record<string, Light> = {};
+let tileLookup: Record<string, Sprite> = {};
+let lightLookup: Record<string, Light> = {};
+let lightBgLookup: Record<string, Light> = {};
 
 let tilesToLight: number = 0;
+
+let editorMode = false;
+
+function toggleEditorMode() {
+	editorMode = !editorMode;
+}
+window.toggleEditorMode = toggleEditorMode;
 
 type Light = {
 	x: number;
@@ -21,6 +30,7 @@ type Light = {
 	strength: number;
 	sprite: Sprite;
 	texture: string;
+	tile?: Tile;
 };
 
 let grabbedLight: Light | undefined;
@@ -33,11 +43,54 @@ export function goToLevel(levelNumber: number) {
 	currentLevel = levelNumber;
 }
 
-export let level: Level;
+export let level: LevelData;
 
 export function loadLevel() {
-	level = levels[currentLevel];
+	const { data, name } = levels[currentLevel];
+	setLevelName(name, currentLevel);
+	level = data;
 }
+
+export function goToNextLevel() {
+	// Check if there is a next level
+	sound.play('win');
+	blockerControl(true);
+	if (levels[currentLevel + 1] === undefined) {
+		setTimeout(() => {
+			sound.play('next');
+			setLevelText('You Win!');
+		}, 1500);
+		return;
+	}
+	setTimeout(() => {
+		sound.play('next');
+		nextLevel();
+		loadLevel();
+		initLevel();
+	}, 1500);
+
+	setTimeout(() => {
+		blockerControl(false);
+	}, 2000);
+}
+
+function exportLevel() {
+	console.log(JSON.stringify(level));
+}
+window.exportLevel = exportLevel;
+
+function loadEmptyLevel(width: number, height: number): void {
+	level = [];
+	for (let y = 0; y < height; y++) {
+		level.push([]);
+		for (let x = 0; x < width; x++) {
+			const isEdge = x === 0 || y === 0 || x === width - 1 || y === height - 1;
+			level[y].push(isEdge ? Tile.Wall1 : Tile.Background);
+		}
+	}
+	initLevel();
+}
+window.loadEmptyLevel = loadEmptyLevel;
 
 const tileWidth = 64;
 
@@ -88,6 +141,10 @@ export function initLevel() {
 	if (levelCon) {
 		levelCon.destroy({ children: true });
 		app.stage.removeChild(levelCon);
+		cursorSprite = undefined;
+		lightBgLookup = {};
+		lightLookup = {};
+		tileLookup = {};
 	}
 	levelCon = new Container();
 	levelCon.sortableChildren = true;
@@ -110,6 +167,7 @@ export function initLevel() {
 					strength: getLightStrength(tile),
 					sprite,
 					texture,
+					tile,
 				};
 				createTileSprite(Tile.Background, x, y);
 			} else if (tile !== Tile.Empty) {
@@ -169,10 +227,11 @@ function updateLightBgSprites() {
 		const light = lightLookup[key];
 		lightBgIteration(+x, +y, light.strength);
 	}
+	if (editorMode) return;
 	const tilesLit = Object.keys(lightBgLookup).length;
 	console.log(tilesLit, tilesToLight);
 	if (tilesLit === tilesToLight) {
-		console.log('Level Complete!');
+		goToNextLevel();
 	}
 }
 
@@ -206,6 +265,7 @@ function addCursorSprite() {
 	cursorSprite = new Sprite();
 	cursorSprite.texture = getTexture('cursor');
 	cursorSprite.zIndex = 1000;
+	cursorSprite.alpha = 0;
 	levelCon.addChild(cursorSprite);
 }
 
@@ -248,7 +308,6 @@ function updateGrabbedLight() {
 
 
 
-const editorMode = false;
 export function handleMouseLevel() {
 	if (!levelCon) return;
 	updateGrabbedLight();
@@ -267,18 +326,50 @@ export function handleMouseLevel() {
 	}
 	if (editorMode) {
 		if (mouseButtons.has(0)) {
-			deleteTileSprite(tileMousePosition.x, tileMousePosition.y);
-			level[tileMousePosition.y][tileMousePosition.x] = currentEditorTile;
-			const sprite = createTileSprite(currentEditorTile, tileMousePosition.x, tileMousePosition.y);
-			levelCon.addChild(sprite);
+			const { x, y } = tileMousePosition;
+			deleteTileSprite(x, y);
+			level[y][x] = currentEditorTile;
+			if (isLight(currentEditorTile)) {
+				const light = lightLookup[`${x},${y}`];
+				if (light) {
+					levelCon.removeChild(light.sprite);
+					light.sprite.destroy();
+				}
+				const sprite = createTileSprite(currentEditorTile, x, y);
+				levelCon.addChild(sprite);
+				lightLookup[`${x},${y}`] = {
+					x,
+					y,
+					strength: getLightStrength(currentEditorTile),
+					sprite,
+					texture: getTileTexture(currentEditorTile),
+					tile: currentEditorTile,
+				};
+				updateLightBgSprites();
+			} else {
+				const sprite = createTileSprite(currentEditorTile, x, y);
+				levelCon.addChild(sprite);
+				updateLightBgSprites();
+			}
 		} else if (mouseButtons.has(2)) {
-			deleteTileSprite(tileMousePosition.x, tileMousePosition.y);
+			const { x, y } = tileMousePosition;
+			deleteTileSprite(x, y);
+			// Delete light
+			const light = lightLookup[`${x},${y}`];
+			if (light) {
+				level[y][x] = Tile.Background;
+				delete lightLookup[`${x},${y}`];
+				levelCon.removeChild(light.sprite);
+				light.sprite.destroy();
+			}
+			updateLightBgSprites();
 		}
 	} else {
 		if (grabbedLight) {
 			setCursor('move');
 
 			if (mouseButtons.has(0)) {
+				sound.play('off');
 				mouseButtons.delete(0);
 
 				// Check if the light can be placed
@@ -296,7 +387,7 @@ export function handleMouseLevel() {
 				light.x = x;
 				light.y = y;
 				lightLookup[`${x},${y}`] = light;
-				level[y][x] = Tile.Light2;
+				level[y][x] = light.tile ? light.tile : Tile.Light1;
 				grabbedLight = undefined;
 
 				// Update the light bg sprites
@@ -317,6 +408,7 @@ export function handleMouseLevel() {
 			const { x, y } = tileMousePosition;
 			mouseButtons.delete(0);
 			// Grab the light
+			sound.play('on');
 			level[y][x] = Tile.Background;
 			delete lightLookup[`${x},${y}`];
 			grabbedLight = light;

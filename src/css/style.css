@@ -3,7 +3,6 @@
     font-family: 'Geist';
 }
 body {
-    margin: 0;
     overflow: hidden;
 	background-color: #222;
 }
@@ -11,10 +10,34 @@ body {
     font-family: 'Geist';
     color: white;
     user-select: none;
+	margin: 0;
+	padding: 0;
 }
 #game {
     position: fixed;
     left: 0;
     top: 0;
     z-index: -1;
+}
+#ui {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	margin: 20px;
+	z-index: 2;
+	font-size: 28px;
+	transition: all 1.3s ease-in-out;
+}
+#levelName {
+	transition: color 1s linear;
+}
+#blocker {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	z-index: 1;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 1s linear;
 }

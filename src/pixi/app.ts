@@ -11,7 +11,7 @@ function resize(): void {
 window.addEventListener('resize', resize);
 resize();
 
-app.renderer.background.color = 0x222222;
+app.renderer.background.color = 0x111111;
 app.view.id = 'game';
 document.body.appendChild(app.view);
 

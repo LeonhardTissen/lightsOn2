@@ -2,6 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackObfuscator = require('webpack-obfuscator');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = (_env, argv) => ({
 	entry: './src/main.ts',
@@ -15,7 +17,7 @@ module.exports = (_env, argv) => ({
 	module: {
 		rules: [
 			{
-				test: /.+\.(png|svg|webmanifest|ttf)$/,
+				test: /.+\.(png|svg|webmanifest|ttf|mp3)$/,
 				type: 'asset/resource',
 			},
 			{
@@ -82,6 +84,7 @@ module.exports = (_env, argv) => ({
 		],
 	},
 	plugins: [
+		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			inject: false,
 			xhtml: true,
@@ -89,6 +92,11 @@ module.exports = (_env, argv) => ({
 		new MiniCssExtractPlugin({
 			filename: '[name].[contenthash].css',
 		}),
+		new CopyWebpackPlugin({
+			patterns: [
+				{ from: 'public', to: '' },
+			],
+		}),
 	],
-	devtool: argv.mode === 'development' ? 'eval-source-map' : 'hidden-source-map',
+	devtool: argv.mode === 'development' ? 'eval-source-map' : false,
 });
