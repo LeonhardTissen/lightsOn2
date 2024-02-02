@@ -69,13 +69,17 @@ document.getElementById('reset')!.addEventListener('click', () => {
 export let level: LevelData;
 
 export function loadLevel() {
-	const { data, name } = levels[currentLevel];
+	const { data, name, theme } = levels[currentLevel];
 	setLevelInfo(name, currentLevel);
 	level = JSON.parse(JSON.stringify(data));
-	if (currentLevel < 10) {
+	if (theme === 0) {
 		setBackgroundColor(0x111111);
-	} else if (currentLevel < 20) {
+	} else if (theme === 1) {
+		setBackgroundColor(0x111811);
+	} else if (theme === 2) {
 		setBackgroundColor(0x211F11);
+	} else if (theme === 3) {
+		setBackgroundColor(0x382F31);
 	}
 }
 
