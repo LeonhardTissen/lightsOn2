@@ -1,14 +1,21 @@
 export enum Tile {
 	Empty = 0,
-	Background = 1,
-	Wall1 = 2,
-	Wall2 = 3,
-	Wall3 = 4,
-	Wall4 = 5,
-	Wall5 = 6,
-	Light1 = 7,
-	Light2 = 8,
-	Light3 = 9,
+	Background1 = 1,
+	Background2 = 2,
+	Wall1 = 10,
+	Wall2 = 11,
+	Wall3 = 12,
+	Wall4 = 13,
+	Wall5 = 14,
+	Wall6 = 15,
+	Wall7 = 16,
+	Wall8 = 17,
+	Light1 = 100,
+	Light2 = 101,
+	Light3 = 102,
+	Light1Cage = 110,
+	Light2Cage = 111,
+	Light3Cage = 112,
 }
 
 export interface TileConfig {
@@ -30,14 +37,28 @@ export function getTileTexture(tile: Tile) {
 			return 'wall4';
 		case Tile.Wall5:
 			return 'wall5';
+		case Tile.Wall6:
+			return 'wall6';
+		case Tile.Wall7:
+			return 'wall7';
+		case Tile.Wall8:
+			return 'wall8';
 		case Tile.Light1:
 			return 'light1';
 		case Tile.Light2:
 			return 'light2';
 		case Tile.Light3:
 			return 'light3';
-		case Tile.Background:
-			return 'bg';
+		case Tile.Light1Cage:
+			return 'light1cage';
+		case Tile.Light2Cage:
+			return 'light2cage';
+		case Tile.Light3Cage:
+			return 'light3cage';
+		case Tile.Background1:
+			return 'bg1';
+		case Tile.Background2:
+			return 'bg2';
 		default:
 			return 'error';
 	}
@@ -54,6 +75,9 @@ const walls = new Set([
 	Tile.Wall3,
 	Tile.Wall4,
 	Tile.Wall5,
+	Tile.Wall6,
+	Tile.Wall7,
+	Tile.Wall8,
 ]);
 
 export function isWall(tile: Tile) {
@@ -64,21 +88,46 @@ const lights = new Set([
 	Tile.Light1,
 	Tile.Light2,
 	Tile.Light3,
+	Tile.Light1Cage,
+	Tile.Light2Cage,
+	Tile.Light3Cage,
 ]);
 
 export function isLight(tile: Tile) {
 	return lights.has(tile);
 }
 
+const movableLights = new Set([
+	Tile.Light1,
+	Tile.Light2,
+	Tile.Light3,
+]);
+
+export function isMovableLight(tile: Tile) {
+	return movableLights.has(tile);
+}
+
 export function getLightStrength(tile: Tile): number {
 	switch (tile) {
 		case Tile.Light1:
+		case Tile.Light1Cage:
 			return 2;
 		case Tile.Light2:
+		case Tile.Light2Cage:
 			return 4;
 		case Tile.Light3:
+		case Tile.Light3Cage:
 			return 6;
 		default:
 			return 0;
 	}
+}
+
+const backgrounds = new Set([
+	Tile.Background1,
+	Tile.Background2,
+]);
+
+export function isBackground(tile: Tile) {
+	return backgrounds.has(tile);
 }

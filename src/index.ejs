@@ -6,7 +6,7 @@
 
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
+    <meta name="viewport" content="width=640, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
 
 	<meta name="title" content="Lights on 2!">
     <meta name="description" content="Light up the entire room to win!">
@@ -48,7 +48,17 @@
 			<a class="decorated" href="//lightson.warze.org">Try "Lights on!"</a>
 		</div>
 	</div>
-	<div id="levelMenu"></div>
+	<div id="levelMenuButton">
+		<svg width="50" height="50">
+			<path d="M 10 15 L 40 15 M 10 25 L 40 25 M 10 35 L 40 35" stroke="white" stroke-width="5" stroke-linecap="round" />
+		</svg>
+	</div>
+	<div id="levelMenuBackground">
+		<div id="levelMenu" style="display: none;">
+			<p>Level Select:</p>
+		</div>
+	</div>
+	<div id="editorTiles" style="display: none;"></div>
 	<div id="tilesLit"></div>
 	<div id="blocker">
 	</div>

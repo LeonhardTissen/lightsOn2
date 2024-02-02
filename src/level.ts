@@ -1,11 +1,10 @@
 import { Container, Sprite } from 'pixi.js';
-import { getTexture } from './pixi/assets';
+import { getTexture, music } from './pixi/assets';
 import { app, setCursor } from './pixi/app';
 import { LevelData, levels } from './levels';
-import { Tile, getLightStrength, getTileTexture, isLight, isWall, wallTileOffset } from './tile';
+import { Tile, getLightStrength, getTileTexture, isBackground, isLight, isWall, wallTileOffset } from './tile';
 import { mouseButtons, mousePosition } from './mouse';
-import { pressedKeys } from './keyboard';
-import { blockerControl, causeLevelTextAnimation, setLevelInfo, setLevelName, setLevelNumber, setTilesLit, winScreenControl } from './ui';
+import { blockerControl, causeLevelTextAnimation, levelMenuControl, setLevelInfo, setLevelName, setLevelNumber, setTilesLit, winScreenControl } from './ui';
 import { sound } from './audio';
 
 export let currentLevel = 0;
@@ -28,6 +27,7 @@ let editorMode = false;
 
 function toggleEditorMode() {
 	editorMode = !editorMode;
+	editorTiles.style.display = editorMode ? 'flex' : 'none';
 }
 window.toggleEditorMode = toggleEditorMode;
 
@@ -109,7 +109,7 @@ function loadEmptyLevel(width: number, height: number): void {
 		level.push([]);
 		for (let x = 0; x < width; x++) {
 			const isEdge = x === 0 || y === 0 || x === width - 1 || y === height - 1;
-			level[y].push(isEdge ? Tile.Wall1 : Tile.Background);
+			level[y].push(isEdge ? Tile.Wall1 : getBgTile());
 		}
 	}
 	initLevel();
@@ -134,6 +134,16 @@ export function centerLevel() {
 	const { x, y } = getTopLeftOfLevel();
 	levelCon.position.x = x;
 	levelCon.position.y = y;
+}
+
+function getBgTile(): Tile {
+	if (currentLevel <= 10) {
+		return Tile.Background1;
+	}
+	if (currentLevel <= 20) {
+		return Tile.Background2;
+	}
+	return Tile.Background1;
 }
 
 function createTileSprite(tile: Tile, x: number, y: number) {
@@ -193,7 +203,7 @@ export function initLevel() {
 					texture,
 					tile,
 				};
-				createTileSprite(Tile.Background, x, y);
+				createTileSprite(getBgTile(), x, y);
 			} else if (tile !== Tile.Empty) {
 				createTileSprite(tile, x, y);
 			}
@@ -334,9 +344,10 @@ function updateGrabbedLight() {
 	grabbedLight.sprite.y = mousePosition.y - tileWidth / 2;
 }
 
-
-
 export function handleMouseLevel() {
+	if (mouseButtons.has(0)) {
+		music.play();
+	}
 	if (!levelCon) return;
 	updateGrabbedLight();
 	updateCursorSprite();
@@ -385,7 +396,7 @@ export function handleMouseLevel() {
 			// Delete light
 			const light = lightLookup[`${x},${y}`];
 			if (light) {
-				level[y][x] = Tile.Background;
+				level[y][x] = getBgTile();
 				delete lightLookup[`${x},${y}`];
 				levelCon.removeChild(light.sprite);
 				light.sprite.destroy();
@@ -400,7 +411,7 @@ export function handleMouseLevel() {
 
 				// Check if the light can be placed
 				const { x, y } = tileMousePosition;
-				if (level[y][x] !== Tile.Background) return;
+				if (!isBackground(level[y][x])) return;
 
 				// Place the light
 				sound.play('off');
@@ -435,7 +446,7 @@ export function handleMouseLevel() {
 			const { x, y } = tileMousePosition;
 			// Grab the light
 			sound.play('on');
-			level[y][x] = Tile.Background;
+			level[y][x] = getBgTile();
 			delete lightLookup[`${x},${y}`];
 			grabbedLight = light;
 			levelCon.removeChild(light.sprite);
@@ -449,25 +460,15 @@ export function handleMouseLevel() {
 	}
 }
 
-export function handleKeyboardLevel() {
-	if (editorMode) {
-		for (let i = 0; i < 10; i++) {
-			if (pressedKeys.has(`${i}`)) {
-				currentEditorTile = i;
-				setLevelNumber(`${i}`);
-				setLevelName(`${Tile[i]}`);
-			}
-		}
-	}
-}
-
 levels.forEach((_, index) => {
 	const button = document.createElement('button');
 	button.classList.add('levelButton');
+	button.innerText = `${index + 1}`;
 	button.addEventListener('click', () => {
 		goToLevel(index);
 		loadLevel();
 		initLevel();
+		levelMenuControl(false);
 	});
 	document.getElementById('levelMenu')!.appendChild(button);
 	updateLevelButtons();
@@ -482,4 +483,23 @@ function updateLevelButtons() {
 			button.classList.remove('locked');
 		}
 	});
+}
+
+const editorTiles = document.getElementById('editorTiles') as HTMLDivElement;
+
+export function createTileElements() {
+	for (const tile in Tile) {
+		if (isNaN(Number(tile))) {
+			const tileId = Tile[tile as keyof typeof Tile];
+			const tileBtn = document.createElement('button');
+			tileBtn.classList.add('tile');
+			tileBtn.innerText = tile;
+			tileBtn.addEventListener('click', () => {
+				currentEditorTile = tileId;
+				setLevelNumber(`${tileId}`);
+				setLevelName(`${tile}`);
+			});
+			editorTiles.appendChild(tileBtn);
+		}
+	}
 }

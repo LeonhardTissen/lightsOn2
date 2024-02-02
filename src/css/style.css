@@ -96,30 +96,74 @@ body {
 #winScreen {
 	display: none;
 }
-#levelMenu {
+#levelMenuButton {
 	position: fixed;
-	left: 50%;
-	top: 20px;
-	transform: translateX(-50%);
+	top: 0;
+	right: 0;
+	margin: 20px;
+	cursor: pointer;
+	transition: all 0.15s ease-out;
+	opacity: 0.6;
 	z-index: 1;
+}
+#levelMenuButton:hover {
+	transform: scale(1.2);
+	opacity: 1;
+}
+#levelMenuBackground {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	pointer-events: none;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.3s ease-out;
+}
+#levelMenu {
+	pointer-events: all;
+	background-color: #0008;
+	backdrop-filter: blur(10px);
+	border-radius: 30px;
+	padding: 20px;
+	z-index: 1;
+	color: white;
+	width: 460px;
+	text-align: center;
+	box-shadow: 30px 30px 20px 0px #0005;
+	animation: appear 0.3s;
+}
+@keyframes appear {
+	from {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+#levelMenu p {
+	font-size: 28px;
 }
 .levelButton {
 	border: none;
-	background-color: white;
+	background-color: #888;
 	border-radius: 50%;
-	width: 24px;
-	height: 24px;
+	width: 32px;
+	height: 32px;
 	margin: 6px;
 	cursor: pointer;
-	opacity: 0.2;
+	opacity: 0.6;
 	transition: all 0.15s ease-out;
+	color: white;
 }
 .levelButton:hover {
 	opacity: 1;
 	transform: scale(1.2);
 }
 .levelButton.locked {
-	opacity: 0.05;
+	opacity: 0.2;
 	pointer-events: none;
 	transform: scale(0.8);
 	filter: blur(2px);
@@ -149,4 +193,10 @@ body {
 	66% {
 		color: rgb(255, 145, 20);
 	}
+}
+#editorTiles {
+	position: fixed;
+	left: 0;
+	top: 60px;
+	flex-direction: column;
 }

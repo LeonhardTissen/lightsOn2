@@ -39,3 +39,17 @@ export function causeLevelTextAnimation() {
 		levelText.style.animation = '';
 	});
 }
+
+const levelMenu = document.getElementById('levelMenu')!;
+const levelMenuBackground = document.getElementById('levelMenuBackground')!;
+export function levelMenuControl(active: boolean) {
+	levelMenu.style.display = active ? 'block' : 'none';
+	levelMenuBackground.style.pointerEvents = active ? 'all' : 'none';
+	levelMenuBackground.style.backgroundColor = active ? 'rgba(0, 0, 0, 0.2)' : 'rgba(0, 0, 0, 0)';
+	levelMenuBackground.style.backdropFilter = active ? 'blur(5px)' : 'blur(0)';
+}
+
+const levelMenuButton = document.getElementById('levelMenuButton')!;
+levelMenuButton.addEventListener('click', () => {
+	levelMenuControl(levelMenu.style.display === 'none');
+});

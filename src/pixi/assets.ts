@@ -28,3 +28,7 @@ export function getTexture(name: string): Texture {
 	}
 	return texture;
 }
+
+export const music = new Audio('/audio/music.ogg');
+music.loop = true;
+music.volume = 0.5;
