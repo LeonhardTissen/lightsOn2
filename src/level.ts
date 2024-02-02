@@ -72,14 +72,18 @@ export function loadLevel() {
 	const { data, name, theme } = levels[currentLevel];
 	setLevelInfo(name, currentLevel);
 	level = JSON.parse(JSON.stringify(data));
-	if (theme === 0) {
+	if (theme === 0) { // Dungeon
 		setBackgroundColor(0x111111);
-	} else if (theme === 1) {
+	} else if (theme === 1) { // Dungeon 2
 		setBackgroundColor(0x111811);
-	} else if (theme === 2) {
+	} else if (theme === 2) { // Tomb
 		setBackgroundColor(0x211F11);
-	} else if (theme === 3) {
+	} else if (theme === 3) { // Tomb 2
+		setBackgroundColor(0x14120F);
+	} else if (theme === 4) { // Quartz
 		setBackgroundColor(0x382F31);
+	} else if (theme === 5) { // Quartz 2
+		setBackgroundColor(0x4A3737);
 	}
 }
 
