@@ -1,11 +1,12 @@
 import { Container, Point, Sprite } from 'pixi.js';
-import { getTexture, music } from './pixi/assets';
-import { app, setCursor } from './pixi/app';
+import { getTexture } from './pixi/assets';
+import { app, setBackgroundColor, setCursor } from './pixi/app';
 import { LevelData, levels } from './levels';
-import { Tile, getLightStrength, getTileTexture, isBackground, isLight, isWall, wallTileOffset } from './tile';
+import { Tile, getLightStrength, getTileTexture, isBackground, isLight, isMovableLight, isWall, wallTileOffset } from './tile';
 import { mouseButtons, mousePosition } from './mouse';
 import { blockerControl, causeLevelTextAnimation, levelMenuControl, setLevelInfo, setLevelName, setLevelNumber, setTilesLit, winScreenControl } from './ui';
 import { sound } from './audio';
+import './keyboard';
 
 export let currentLevel = 0;
 
@@ -25,7 +26,7 @@ let tilesToLight: number = 0;
 
 let editorMode = false;
 
-function toggleEditorMode() {
+export function toggleEditorMode() {
 	editorMode = !editorMode;
 	editorTiles.style.display = editorMode ? 'flex' : 'none';
 }
@@ -71,6 +72,11 @@ export function loadLevel() {
 	const { data, name } = levels[currentLevel];
 	setLevelInfo(name, currentLevel);
 	level = JSON.parse(JSON.stringify(data));
+	if (currentLevel < 10) {
+		setBackgroundColor(0x111111);
+	} else if (currentLevel < 20) {
+		setBackgroundColor(0x211F11);
+	}
 }
 
 export function winGame() {
@@ -460,8 +466,9 @@ export function handleMouseLevel() {
 
 
 		// See if there is a light to grab
-		const light = lightLookup[`${tileMousePosition.x},${tileMousePosition.y}`];
-		if (light === undefined) {
+		const { x, y } = tileMousePosition;
+		const light = lightLookup[`${x},${y}`];
+		if (light === undefined || !isMovableLight(level[y][x])) {
 			setCursor('default');
 
 			if (mouseButtons.has(0)) {
@@ -473,7 +480,6 @@ export function handleMouseLevel() {
 
 		setCursor('grab');
 		if (mouseButtons.has(0)) {
-			const { x, y } = tileMousePosition;
 			// Grab the light
 			sound.play('on');
 			level[y][x] = getBgTile();

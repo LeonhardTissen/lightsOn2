@@ -18,3 +18,7 @@ document.body.appendChild(app.view);
 export function setCursor(cursor: string): void {
 	app.view.style.cursor = cursor;
 }
+
+export function setBackgroundColor(color: number): void {
+	app.renderer.background.color = color;
+}
