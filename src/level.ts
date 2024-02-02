@@ -49,7 +49,7 @@ export function nextLevel() {
 	updateLevelButtons();
 	const oldSave = localStorage.getItem(lsiKey);
 	// Only save the level if it is higher than the old save or if there is no old save
-	if ((oldSave && currentLevel > +oldSave) || !oldSave) {
+	if ((oldSave !== null && currentLevel > +oldSave) || oldSave === null) {
 		localStorage.setItem(lsiKey, `${currentLevel}`);
 	}
 }
