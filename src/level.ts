@@ -112,7 +112,7 @@ export function goToNextLevel() {
 	}, 2000);
 }
 
-function exportLevel() {
+export function exportLevel() {
 	console.log(JSON.stringify(level));
 }
 window.exportLevel = exportLevel;
