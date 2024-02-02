@@ -1,4 +1,4 @@
-import { Container, Sprite } from 'pixi.js';
+import { Container, Point, Sprite } from 'pixi.js';
 import { getTexture, music } from './pixi/assets';
 import { app, setCursor } from './pixi/app';
 import { LevelData, levels } from './levels';
@@ -344,6 +344,9 @@ function updateGrabbedLight() {
 	grabbedLight.sprite.y = mousePosition.y - tileWidth / 2;
 }
 
+let levelHeld = false;
+let levelHeldPosition: null | Point = null;
+
 export function handleMouseLevel() {
 	if (mouseButtons.has(0)) {
 		music.play();
@@ -434,10 +437,35 @@ export function handleMouseLevel() {
 			return;
 		}
 
+		if (levelHeld) {
+			if (levelHeldPosition === null) {
+				levelHeldPosition = new Point(mousePosition.x, mousePosition.y);
+			} else {
+				const dx = mousePosition.x - levelHeldPosition.x;
+				const dy = mousePosition.y - levelHeldPosition.y;
+				levelCon.position.x += dx;
+				levelCon.position.y += dy;
+				levelHeldPosition.x = mousePosition.x;
+				levelHeldPosition.y = mousePosition.y;
+			}
+
+			if (!mouseButtons.has(0)) {
+				levelHeld = false;
+				levelHeldPosition = null;
+			}
+			return;
+		}
+
+
 		// See if there is a light to grab
 		const light = lightLookup[`${tileMousePosition.x},${tileMousePosition.y}`];
 		if (light === undefined) {
 			setCursor('default');
+
+			if (mouseButtons.has(0)) {
+				levelHeld = true;
+			}
+
 			return;
 		}
 

@@ -22,17 +22,19 @@ body {
 	position: fixed;
 	left: 0;
 	bottom: 0;
-	margin: 20px;
 	z-index: 2;
 	font-size: 28px;
 	transition: all 1.3s ease-in-out;
 	pointer-events: none;
 	text-align: center;
+	padding-block: 20px;
 }
 #levelText {
 	color: white;
 	transition: color 1s linear;
 	white-space: nowrap;
+	padding-left: 20px;
+	transition: padding-left 1.3s cubic-bezier(.33,2,.62,-2);
 }
 @keyframes flick {
 	0% {

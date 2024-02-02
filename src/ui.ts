@@ -17,6 +17,7 @@ export function blockerControl(active: boolean) {
 	const levelText = document.getElementById('levelText')!;
 	const ui = document.getElementById('ui')!;
 	levelText.style.color = active ? 'black' : 'white';
+	levelText.style.paddingLeft = active ? '0' : '20px';
 	blocker.style.opacity = active ? '1' : '0';
 	blocker.style.pointerEvents = active ? 'all' : 'none';
 	ui.style.bottom = active ? '50%' : '0';
