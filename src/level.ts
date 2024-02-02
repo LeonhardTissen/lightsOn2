@@ -348,9 +348,6 @@ let levelHeld = false;
 let levelHeldPosition: null | Point = null;
 
 export function handleMouseLevel() {
-	if (mouseButtons.has(0)) {
-		music.play();
-	}
 	if (!levelCon) return;
 	updateGrabbedLight();
 	updateCursorSprite();
@@ -493,6 +490,7 @@ export function handleMouseLevel() {
 	}
 }
 
+const levelList = document.getElementById('levelList') as HTMLDivElement;
 levels.forEach((_, index) => {
 	const button = document.createElement('button');
 	button.classList.add('levelButton');
@@ -503,7 +501,7 @@ levels.forEach((_, index) => {
 		initLevel();
 		levelMenuControl(false);
 	});
-	document.getElementById('levelMenu')!.appendChild(button);
+	levelList.appendChild(button);
 	updateLevelButtons();
 });
 

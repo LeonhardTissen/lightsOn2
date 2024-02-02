@@ -1,6 +1,7 @@
 import { Point } from 'pixi.js';
 import { handleMouseLevel } from './level';
 import { app } from './pixi/app';
+import { music } from './pixi/assets';
 
 export const mousePosition: Point = new Point();
 
@@ -50,3 +51,9 @@ app.view.addEventListener('touchmove', (event) => {
 	mousePosition.y = event.touches[0].clientY;
 	handleMouseLevel();
 });
+
+function startMusic() {
+	music.play();
+}
+document.body.addEventListener('click', startMusic);
+document.body.addEventListener('touchstart', startMusic);
