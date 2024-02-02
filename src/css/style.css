@@ -133,6 +133,11 @@ body {
 	box-shadow: 30px 30px 20px 0px #0005;
 	animation: appear 0.3s;
 }
+@media screen and (max-width: 500px) {
+	#levelMenu {
+		width: 250px;
+	}
+}
 @keyframes appear {
 	from {
 		opacity: 0;
