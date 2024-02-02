@@ -363,7 +363,12 @@ export function handleMouseLevel() {
 		x: Math.floor(relativeMousePosition.x / tileWidth),
 		y: Math.floor(relativeMousePosition.y / tileWidth),
 	};
-	if (tileMousePosition.x < 0 || tileMousePosition.y < 0 || tileMousePosition.x >= level[0].length || tileMousePosition.y >= level.length) {
+	if (!levelHeld && (
+		tileMousePosition.x < 0 ||
+		tileMousePosition.y < 0 ||
+		tileMousePosition.x >= level[0].length ||
+		tileMousePosition.y >= level.length
+	)) {
 		return;
 	}
 	if (editorMode) {
