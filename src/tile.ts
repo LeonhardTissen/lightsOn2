@@ -3,6 +3,7 @@ export enum Tile {
 	Background1 = 1,
 	Background2 = 2,
 	Background3 = 3,
+	Background4 = 4,
 	Wall1 = 10,
 	Wall2 = 11,
 	Wall3 = 12,
@@ -74,6 +75,8 @@ export function getTileTexture(tile: Tile) {
 			return 'bg2';
 		case Tile.Background3:
 			return 'bg3';
+		case Tile.Background4:
+			return 'bg4';
 		default:
 			return 'error';
 	}
@@ -146,6 +149,7 @@ const backgrounds = new Set([
 	Tile.Background1,
 	Tile.Background2,
 	Tile.Background3,
+	Tile.Background4,
 ]);
 
 export function isBackground(tile: Tile) {
