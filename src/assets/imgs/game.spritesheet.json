@@ -3,7 +3,7 @@
 		"image": "@ref(./game.spritesheet.png)",
 		"size": {
 			"w": 400,
-			"h": 400
+			"h": 316
 		},
 		"scale": "1"
 	},
@@ -88,70 +88,10 @@
 				"h": 84
 			}
 		},
-		"wall10.png": {
-			"frame": {
-				"x": 168,
-				"y": 0,
-				"w": 84,
-				"h": 84
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 84,
-				"h": 84
-			},
-			"sourceSize": {
-				"w": 84,
-				"h": 84
-			}
-		},
-		"wall11.png": {
-			"frame": {
-				"x": 168,
-				"y": 84,
-				"w": 84,
-				"h": 84
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 84,
-				"h": 84
-			},
-			"sourceSize": {
-				"w": 84,
-				"h": 84
-			}
-		},
-		"wall12.png": {
-			"frame": {
-				"x": 0,
-				"y": 168,
-				"w": 84,
-				"h": 84
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 84,
-				"h": 84
-			},
-			"sourceSize": {
-				"w": 84,
-				"h": 84
-			}
-		},
 		"wall1.png": {
 			"frame": {
-				"x": 84,
-				"y": 168,
+				"x": 168,
+				"y": 0,
 				"w": 84,
 				"h": 84
 			},
@@ -171,7 +111,7 @@
 		"wall2.png": {
 			"frame": {
 				"x": 168,
-				"y": 168,
+				"y": 84,
 				"w": 84,
 				"h": 84
 			},
@@ -190,8 +130,8 @@
 		},
 		"wall3.png": {
 			"frame": {
-				"x": 252,
-				"y": 0,
+				"x": 0,
+				"y": 168,
 				"w": 84,
 				"h": 84
 			},
@@ -210,8 +150,8 @@
 		},
 		"wall4.png": {
 			"frame": {
-				"x": 252,
-				"y": 84,
+				"x": 84,
+				"y": 168,
 				"w": 84,
 				"h": 84
 			},
@@ -230,7 +170,7 @@
 		},
 		"wall5.png": {
 			"frame": {
-				"x": 252,
+				"x": 168,
 				"y": 168,
 				"w": 84,
 				"h": 84
@@ -250,8 +190,8 @@
 		},
 		"wall6.png": {
 			"frame": {
-				"x": 0,
-				"y": 252,
+				"x": 252,
+				"y": 0,
 				"w": 84,
 				"h": 84
 			},
@@ -270,8 +210,8 @@
 		},
 		"wall7.png": {
 			"frame": {
-				"x": 84,
-				"y": 252,
+				"x": 252,
+				"y": 84,
 				"w": 84,
 				"h": 84
 			},
@@ -290,28 +230,8 @@
 		},
 		"wall8.png": {
 			"frame": {
-				"x": 168,
-				"y": 252,
-				"w": 84,
-				"h": 84
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 84,
-				"h": 84
-			},
-			"sourceSize": {
-				"w": 84,
-				"h": 84
-			}
-		},
-		"wall9.png": {
-			"frame": {
 				"x": 252,
-				"y": 252,
+				"y": 168,
 				"w": 84,
 				"h": 84
 			},
@@ -329,6 +249,106 @@
 			}
 		},
 		"bg1.png": {
+			"frame": {
+				"x": 0,
+				"y": 252,
+				"w": 64,
+				"h": 64
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 64
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 64
+			}
+		},
+		"bg2.png": {
+			"frame": {
+				"x": 64,
+				"y": 252,
+				"w": 64,
+				"h": 64
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 64
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 64
+			}
+		},
+		"cursor.png": {
+			"frame": {
+				"x": 128,
+				"y": 252,
+				"w": 64,
+				"h": 64
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 64
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 64
+			}
+		},
+		"light1cage.png": {
+			"frame": {
+				"x": 192,
+				"y": 252,
+				"w": 64,
+				"h": 64
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 64
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 64
+			}
+		},
+		"light1.png": {
+			"frame": {
+				"x": 256,
+				"y": 252,
+				"w": 64,
+				"h": 64
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 64,
+				"h": 64
+			},
+			"sourceSize": {
+				"w": 64,
+				"h": 64
+			}
+		},
+		"light2cage.png": {
 			"frame": {
 				"x": 336,
 				"y": 0,
@@ -348,7 +368,7 @@
 				"h": 64
 			}
 		},
-		"bg2.png": {
+		"light2.png": {
 			"frame": {
 				"x": 336,
 				"y": 64,
@@ -368,7 +388,7 @@
 				"h": 64
 			}
 		},
-		"bg3.png": {
+		"light3cage.png": {
 			"frame": {
 				"x": 336,
 				"y": 128,
@@ -388,7 +408,7 @@
 				"h": 64
 			}
 		},
-		"bg4.png": {
+		"light3.png": {
 			"frame": {
 				"x": 336,
 				"y": 192,
@@ -408,150 +428,10 @@
 				"h": 64
 			}
 		},
-		"cursor.png": {
-			"frame": {
-				"x": 336,
-				"y": 256,
-				"w": 64,
-				"h": 64
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 64,
-				"h": 64
-			},
-			"sourceSize": {
-				"w": 64,
-				"h": 64
-			}
-		},
-		"light1cage.png": {
-			"frame": {
-				"x": 0,
-				"y": 336,
-				"w": 64,
-				"h": 64
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 64,
-				"h": 64
-			},
-			"sourceSize": {
-				"w": 64,
-				"h": 64
-			}
-		},
-		"light1.png": {
-			"frame": {
-				"x": 64,
-				"y": 336,
-				"w": 64,
-				"h": 64
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 64,
-				"h": 64
-			},
-			"sourceSize": {
-				"w": 64,
-				"h": 64
-			}
-		},
-		"light2cage.png": {
-			"frame": {
-				"x": 128,
-				"y": 336,
-				"w": 64,
-				"h": 64
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 64,
-				"h": 64
-			},
-			"sourceSize": {
-				"w": 64,
-				"h": 64
-			}
-		},
-		"light2.png": {
-			"frame": {
-				"x": 192,
-				"y": 336,
-				"w": 64,
-				"h": 64
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 64,
-				"h": 64
-			},
-			"sourceSize": {
-				"w": 64,
-				"h": 64
-			}
-		},
-		"light3cage.png": {
-			"frame": {
-				"x": 256,
-				"y": 336,
-				"w": 64,
-				"h": 64
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 64,
-				"h": 64
-			},
-			"sourceSize": {
-				"w": 64,
-				"h": 64
-			}
-		},
-		"light3.png": {
-			"frame": {
-				"x": 320,
-				"y": 336,
-				"w": 64,
-				"h": 64
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 64,
-				"h": 64
-			},
-			"sourceSize": {
-				"w": 64,
-				"h": 64
-			}
-		},
 		"error.png": {
 			"frame": {
 				"x": 336,
-				"y": 320,
+				"y": 256,
 				"w": 16,
 				"h": 16
 			},

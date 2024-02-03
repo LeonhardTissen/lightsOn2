@@ -154,13 +154,7 @@ function getBgTile(): Tile {
 	if (currentLevel <= 10) {
 		return Tile.Background1;
 	}
-	if (currentLevel <= 20) {
-		return Tile.Background2;
-	}
-	if (currentLevel <= 30) {
-		return Tile.Background3;
-	}
-	return Tile.Background1;
+	return Tile.Background2;
 }
 
 function createTileSprite(tile: Tile, x: number, y: number) {
@@ -434,9 +428,6 @@ export function handleMouseLevel() {
 				// Check if the light can be placed
 				const { x, y } = tileMousePosition;
 				if (!isBackground(level[y][x])) return;
-
-				// Dont allow placing lights on top of cracks
-				if (level[y][x] === Tile.Background4) return;
 
 				// Place the light
 				sound.play('off');

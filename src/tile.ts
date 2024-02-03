@@ -2,8 +2,6 @@ export enum Tile {
 	Empty = 0,
 	Background1 = 1,
 	Background2 = 2,
-	Background3 = 3,
-	Background4 = 4,
 	Wall1 = 10,
 	Wall2 = 11,
 	Wall3 = 12,
@@ -12,10 +10,6 @@ export enum Tile {
 	Wall6 = 15,
 	Wall7 = 16,
 	Wall8 = 17,
-	Wall9 = 18,
-	Wall10 = 19,
-	Wall11 = 20,
-	Wall12 = 21,
 	Light1 = 100,
 	Light2 = 101,
 	Light3 = 102,
@@ -49,14 +43,6 @@ export function getTileTexture(tile: Tile) {
 			return 'wall7';
 		case Tile.Wall8:
 			return 'wall8';
-		case Tile.Wall9:
-			return 'wall9';
-		case Tile.Wall10:
-			return 'wall10';
-		case Tile.Wall11:
-			return 'wall11';
-		case Tile.Wall12:
-			return 'wall12';
 		case Tile.Light1:
 			return 'light1';
 		case Tile.Light2:
@@ -73,10 +59,6 @@ export function getTileTexture(tile: Tile) {
 			return 'bg1';
 		case Tile.Background2:
 			return 'bg2';
-		case Tile.Background3:
-			return 'bg3';
-		case Tile.Background4:
-			return 'bg4';
 		default:
 			return 'error';
 	}
@@ -96,10 +78,6 @@ const walls = new Set([
 	Tile.Wall6,
 	Tile.Wall7,
 	Tile.Wall8,
-	Tile.Wall9,
-	Tile.Wall10,
-	Tile.Wall11,
-	Tile.Wall12,
 ]);
 
 export function isWall(tile: Tile) {
@@ -148,8 +126,6 @@ export function getLightStrength(tile: Tile): number {
 const backgrounds = new Set([
 	Tile.Background1,
 	Tile.Background2,
-	Tile.Background3,
-	Tile.Background4,
 ]);
 
 export function isBackground(tile: Tile) {
