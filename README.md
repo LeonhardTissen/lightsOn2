@@ -1,4 +1,4 @@
-# Lights on 2!
+# Lights On! 2
 A sequel to my game with a different idea.
 
 ## Project setup
