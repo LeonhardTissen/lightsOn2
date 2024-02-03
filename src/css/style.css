@@ -35,6 +35,7 @@ body {
 	white-space: nowrap;
 	padding-left: 20px;
 	transition: padding-left 1.3s cubic-bezier(.33,2,.62,-2);
+	display: flex;
 }
 @keyframes flick {
 	0% {
