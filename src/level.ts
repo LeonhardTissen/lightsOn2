@@ -449,6 +449,8 @@ export function handleMouseLevel() {
 				levelCon.position.y += dy;
 				levelHeldPosition.x = mousePosition.x;
 				levelHeldPosition.y = mousePosition.y;
+				levelCon.position.x = Math.round(levelCon.position.x);
+				levelCon.position.y = Math.round(levelCon.position.y);
 			}
 
 			if (!mouseButtons.has(0)) {
