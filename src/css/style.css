@@ -31,10 +31,9 @@ body {
 }
 #levelText {
 	color: white;
-	transition: color 1s linear;
 	white-space: nowrap;
 	padding-left: 20px;
-	transition: padding-left 1.3s cubic-bezier(.33,2,.62,-2);
+	transition: color 1s linear, padding-left 1.3s cubic-bezier(.33,2,.62,-2);
 	display: flex;
 }
 @keyframes flick {
