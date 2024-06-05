@@ -427,26 +427,6 @@
 				"w": 64,
 				"h": 64
 			}
-		},
-		"error.png": {
-			"frame": {
-				"x": 336,
-				"y": 256,
-				"w": 16,
-				"h": 16
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 16,
-				"h": 16
-			},
-			"sourceSize": {
-				"w": 16,
-				"h": 16
-			}
 		}
 	}
 }
